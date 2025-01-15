@@ -14,7 +14,7 @@ class CPMNuker:
     def __init__(self, access_key) -> None:
         self.auth_token = None
         self.access_key = access_key
-    
+
     def login(self, email, password) -> int:
         payload = { "account_email": email, "account_password": password }
         params = { "key": self.access_key }
@@ -205,5 +205,35 @@ class CPMNuker:
         payload = { "account_auth": self.auth_token }
         params = { "key": self.access_key }
         response = requests.post(f"{__ENDPOINT_URL__}/unlock_lambo_ios_hs", params=params, data=payload)
+        response_decoded = response.json()
+        return response_decoded.get("ok")
+    
+    def hack_car_speed(self, car_id):
+        payload = {
+            "account_auth": self.auth_token,
+            "car_id": car_id
+        }
+        params = { "key": self.access_key }
+        response = requests.post(f"{__ENDPOINT_URL__}/hack_car_speed", params=params, data=payload)
+        response_decoded = response.json()
+        return response_decoded.get("ok")
+    
+    def remove_front_bumper(self, car_id):
+        payload = {
+            "account_auth": self.auth_token,
+            "car_id": car_id
+        }
+        params = { "key": self.access_key }
+        response = requests.post(f"{__ENDPOINT_URL__}/remove_front_bumper", params=params, data=payload)
+        response_decoded = response.json()
+        return response_decoded.get("ok")
+    
+    def remove_rear_bumper(self, car_id):
+        payload = {
+            "account_auth": self.auth_token,
+            "car_id": car_id
+        }
+        params = { "key": self.access_key }
+        response = requests.post(f"{__ENDPOINT_URL__}/remove_rear_bumper", params=params, data=payload)
         response_decoded = response.json()
         return response_decoded.get("ok")

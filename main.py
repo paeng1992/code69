@@ -39,10 +39,13 @@ def gradient_text(text, colors):
     return colorful_text
 
 def banner(console):
-    os.system('cls' if os.name == 'nt' else 'clear')
-    console.print(f"[bold red][*] {base64.b64decode("V2VsY29tZSB0byBDUE1fUEFLVU5ETywgdGhlIGhhY2tlcnMgdG9vbGtpdA==").decode('utf-8')}[/bold red].", "\n")
+    try:
+        os.system('cls' if os.name=='nt' else 'clear')
+    except:
+        console.clear()
+    console.print("[bold red][*] " + base64.b64decode('V2VsY29tZSB0byBDUE1fUEFLVU5ETywgdGhlIGhhY2tlcnMgdG9vbGtpdA==').decode('utf-8') + "[/bold red].", "\n")
     console.print("[bold green][*] Description[/bold green]: Car Parking Multiplayer Hacking Tool.")
-    console.print(f"[bold green][*] Telegram[/bold green]: [bold blue]@{base64.b64decode("Q1BNX1Bha3VuZG9PZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+    console.print("[bold green][*] Telegram[/bold green]: [bold blue]@" + base64.b64decode('Q1BNX1Bha3VuZG9PZmZpY2lhbA==').decode('utf-8') + "[/bold blue].")
     console.print("[bold red]==================================================[/bold red]")
     console.print("[bold yellow][!] Note[/bold yellow]: Logout from CPM before using this tool !.", end="\n\n")
 
@@ -52,10 +55,10 @@ def load_player_data(cpm):
         data = response.get('data')
         if 'floats' in data and 'localID' in data and 'money' in data and 'coin' in data:
             console.print("[bold][red]========[/red][ PLAYER DETAILS ][red]========[/red][/bold]")
-            console.print(f"[bold green]Name   [/bold green]: { (data.get('Name') if 'Name' in data else 'UNDEFINED') }.")
-            console.print(f"[bold green]ID[/bold green]     : { (data.get('localID') if 'localID' in data else 'UNDEFINED') }.")
-            console.print(f"[bold green]Money  [/bold green]: { (data.get('money') if 'money' in data else 'UNDEFINED') }.")
-            console.print(f"[bold green]Coins  [/bold green]: { (data.get('coin') if 'coin' in data else 'UNDEFINED') }.", end="\n\n")
+            console.print("[bold green]Name   [/bold green]: " + (data.get('Name') if 'Name' in data else 'UNDEFINED') + ".")
+            console.print("[bold green]ID[/bold green]     : " + (data.get('localID') if 'localID' in data else 'UNDEFINED') + ".")
+            console.print("[bold green]Money  [/bold green]: " + (str(data.get('money')) if 'money' in data else 'UNDEFINED') + ".")
+            console.print("[bold green]Coins  [/bold green]: " + (str(data.get('coin')) if 'coin' in data else 'UNDEFINED') + ".", end="\n\n")
         else:
             console.print("[bold red]! ERROR[/bold red]: new accounts most be signed-in to the game at least once !.")
             exit(1)
@@ -66,15 +69,15 @@ def load_player_data(cpm):
 def load_key_data(cpm):
     data = cpm.get_key_data()
     console.print("[bold][red]========[/red][ ACCESS KEY DETAILS ][red]========[/red][/bold]")
-    console.print(f"[bold green]Access Key [/bold green]: { data.get('access_key') }.")
-    console.print(f"[bold green]Telegram ID[/bold green]: { data.get('telegram_id') }.")
-    console.print(f"[bold green]Credits    [/bold green]: { (data.get('coins') if not data.get('is_unlimited') else 'Unlimited') }.", end="\n\n")
+    console.print("[bold green]Access Key [/bold green]: " + data.get('access_key') + ".")
+    console.print("[bold green]Telegram ID[/bold green]: " + str(data.get('telegram_id')) + ".")
+    console.print("[bold green]Credits    [/bold green]: " + (str(data.get('coins')) if not data.get('is_unlimited') else 'Unlimited') + ".", end="\n\n")
 
 def prompt_valid_value(content, tag, password=False):
     while True:
         value = Prompt.ask(content, password=password)
         if not value or value.isspace():
-            print(f"{tag} cannot be empty or just spaces. Please try again.")
+            print(tag + " cannot be empty or just spaces. Please try again.")
         else:
             return value
 
@@ -131,7 +134,7 @@ if __name__ == "__main__":
             banner(console)
             load_player_data(cpm)
             load_key_data(cpm)
-            choices = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]
+            choices = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26"]
             console.print("[bold cyan](01): Increase Money ~ 1K[/bold cyan]")
             console.print("[bold cyan](02): Increase Coins ~ 3.5K[/bold cyan]")
             console.print("[bold cyan](03): King Rank ~ 4K[/bold cyan]")
@@ -155,10 +158,13 @@ if __name__ == "__main__":
             console.print("[bold cyan](21): Unlock all Cars ~ 3K[/bold cyan]")
             console.print("[bold cyan](22): Unlock Siren all Cars ~ 3.5K[/bold cyan]")
             console.print("[bold cyan](23): Unlock Lamborghinis 299hp (IOS Only) ~ 7K[/bold cyan]")
+            console.print("[bold cyan](24): Hack Car Speed (299hp) ~ 5K[/bold cyan]")
+            console.print("[bold cyan](25): Remove Front Bumper ~ 2.5K[/bold cyan]")
+            console.print("[bold cyan](26): Remove Rear Bumper ~ 2.5K[/bold cyan]")
             console.print("[bold cyan](0) : Exit[/bold cyan]", end="\n\n")
-            service = IntPrompt.ask(f"[bold][?] Select a Service [red][1-{choices[-1]} or 0][/red][/bold]", choices=choices, show_choices=False)
+            service = IntPrompt.ask("[bold][?] Select a Service [red][1-" + choices[-1] + " or 0][/red][/bold]", choices=choices, show_choices=False)
             if service == 0: # Exit
-                console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
             elif service == 1: # Increase Money
                 console.print("[bold cyan][!] Insert how much money do you want.[/bold cyan]")
                 amount = IntPrompt.ask("[bold][?] Amount[/bold]")
@@ -168,7 +174,7 @@ if __name__ == "__main__":
                         console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                         console.print("==================================")
                         answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                        if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                        if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                         else: continue
                     else:
                         console.print("[bold red]FAILED (✘)[/bold red]")
@@ -189,7 +195,7 @@ if __name__ == "__main__":
                         console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                         console.print("==================================")
                         answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                        if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                        if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                         else: continue
                     else:
                         console.print("[bold red]FAILED (✘)[/bold red]")
@@ -210,7 +216,7 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED (✘)[/bold red]")
@@ -221,12 +227,12 @@ if __name__ == "__main__":
                 console.print("[bold cyan][!] Enter your new ID.[/bold cyan]")
                 new_id = Prompt.ask("[bold][?] ID[/bold]")
                 console.print("[bold cyan][%] Saving your data[/bold cyan]: ", end=None)
-                if len(new_id) >= 0 and len(new_id) <= 99999999999999 and (' ' in new_id) == False:
+                if len(new_id) >= 0 and len(new_id) <= 999999999999 and (' ' in new_id) == False:
                     if cpm.set_player_localid(new_id.upper()):
                         console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                         console.print("==================================")
                         answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                        if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                        if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                         else: continue
                     else:
                         console.print("[bold red]FAILED (✘)[/bold red]")
@@ -247,7 +253,7 @@ if __name__ == "__main__":
                         console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                         console.print("==================================")
                         answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                        if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                        if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                         else: continue
                     else:
                         console.print("[bold red]FAILED (✘)[/bold red]")
@@ -268,7 +274,7 @@ if __name__ == "__main__":
                         console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                         console.print("==================================")
                         answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                        if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                        if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                         else: continue
                     else:
                         console.print("[bold red]FAILED (✘)[/bold red]")
@@ -286,7 +292,7 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED (✘)[/bold red]")
@@ -300,7 +306,7 @@ if __name__ == "__main__":
                     cpm.delete()
                     console.print("[bold cyan][%] Deleting Your Account[/bold cyan]: [bold green]SUCCESSFUL (✔)[/bold green].")
                     console.print("==================================")
-                    console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                 else: continue
             elif service == 9: # Account Register
                 console.print("[bold cyan][!] Registring new Account.[/bold cyan]")
@@ -311,7 +317,7 @@ if __name__ == "__main__":
                 if status == 0:
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
-                    console.print(f"[bold red][!] INFO[/bold red]: In order to tweak this account with CPMNuker")
+                    console.print("[bold red][!] INFO[/bold red]: In order to tune this account with CPMNuker")
                     console.print("you most sign-in to the game using this account.")
                     sleep(2)
                     continue
@@ -331,7 +337,7 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED (✘)[/bold red]")
@@ -345,7 +351,7 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED (✘)[/bold red]")
@@ -358,7 +364,7 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED (✘)[/bold red]")
@@ -371,7 +377,7 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED (✘)[/bold red]")
@@ -384,7 +390,7 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED (✘)[/bold red]")
@@ -397,7 +403,7 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED (✘)[/bold red]")
@@ -410,7 +416,7 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED (✘)[/bold red]")
@@ -423,7 +429,7 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED (✘)[/bold red]")
@@ -434,12 +440,12 @@ if __name__ == "__main__":
                 console.print("[bold cyan][!] Insert how much races you win.[/bold cyan]")
                 amount = IntPrompt.ask("[bold][?] Amount[/bold]")
                 console.print("[bold cyan][%] Changing your data[/bold cyan]: ", end=None)
-                if amount > 0 and amount <= 9999999999999999999:
+                if amount > 0 and amount <= 9999999999999:
                     if cpm.set_player_wins(amount):
                         console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                         console.print("==================================")
                         answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                        if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                        if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                         else: continue
                     else:
                         console.print("[bold red]FAILED (✘)[/bold red]")
@@ -460,7 +466,7 @@ if __name__ == "__main__":
                         console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                         console.print("==================================")
                         answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                        if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                        if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                         else: continue
                     else:
                         console.print("[bold red]FAILED (✘)[/bold red]")
@@ -481,7 +487,7 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL.[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool.")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED.[/bold red]")
@@ -489,13 +495,13 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
             elif service == 21: # Unlock all cars
-                console.print("[bold yellow]! Note[/bold yellow]: this function takes a while to complete, please don't cancel.")
+                console.print("[bold yellow][!] Note[/bold yellow]: this function takes a while to complete, please don't cancel.")
                 console.print("[bold cyan][%] Unlocking All Cars[/bold cyan]: ", end=None)
                 if cpm.unlock_all_cars():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{base64.b64decode("Q1BNTnVrZXJPZmZpY2lhbA==").decode('utf-8')}[/bold blue].")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED (✘)[/bold red]")
@@ -508,23 +514,69 @@ if __name__ == "__main__":
                     console.print("[bold green]SUCCESSFUL.[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool.")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED.[/bold red]")
                     console.print("[bold yellow][!] Please try again.[/bold yellow]")
                     sleep(2)
                     continue
-            elif service == 23: # Unlock Siren all cars
+            elif service == 23: # Unlocking lamborghinis 299hp (IOS Only)
                 console.print("[bold cyan][%] Unlocking lamborghinis 299hp (IOS Only)[/bold cyan]: ", end=None)
                 if cpm.unlock_lambo_ios_hs():
                     console.print("[bold green]SUCCESSFUL.[/bold green]")
                     console.print("==================================")
                     answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
-                    if answ == "y": console.print(f"[bold yellow][!] Thank You for using our tool.")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
                     else: continue
                 else:
                     console.print("[bold red]FAILED.[/bold red]")
+                    console.print("[bold yellow][!] Please try again.[/bold yellow]")
+                    sleep(2)
+                    continue
+            elif service == 24: # Hack Car Speed (299hp)
+                console.print("[bold yellow][!] Note[/bold yellow]: original speed can not be restored !.")
+                console.print("[bold cyan][!] Enter Car Details.[/bold cyan]")
+                car_id = IntPrompt.ask("[bold][?] Car ID[/bold]")
+                console.print("[bold cyan][%] Hacking Car Speed[/bold cyan]: ", end=None)
+                if cpm.hack_car_speed(car_id):
+                    console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
+                    console.print("==================================")
+                    answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
+                    else: continue
+                else:
+                    console.print("[bold red]FAILED (✘)[/bold red]")
+                    console.print("[bold yellow][!] Please try again.[/bold yellow]")
+                    sleep(2)
+                    continue
+            elif service == 25: # Remove Front Bumper
+                console.print("[bold cyan][!] Enter Car Details.[/bold cyan]")
+                car_id = IntPrompt.ask("[bold][?] Car ID[/bold]")
+                console.print("[bold cyan][%] Removing Bumber[/bold cyan]: ", end=None)
+                if cpm.remove_front_bumper(car_id):
+                    console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
+                    console.print("==================================")
+                    answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
+                    else: continue
+                else:
+                    console.print("[bold red]FAILED (✘)[/bold red]")
+                    console.print("[bold yellow][!] Please try again.[/bold yellow]")
+                    sleep(2)
+                    continue
+            elif service == 26: # Remove Rear Bumper
+                console.print("[bold cyan][!] Enter Car Details.[/bold cyan]")
+                car_id = IntPrompt.ask("[bold][?] Car ID[/bold]")
+                console.print("[bold cyan][%] Removing Bumber[/bold cyan]: ", end=None)
+                if cpm.remove_rear_bumper(car_id):
+                    console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
+                    console.print("==================================")
+                    answ = Prompt.ask("[bold cyan][?] Do You want to Exit ?[/bold cyan]", choices=["y", "n"], default="n")
+                    if answ == "y": console.print("[bold yellow][!] Thank You for using our tool.[/bold yellow].")
+                    else: continue
+                else:
+                    console.print("[bold red]FAILED (✘)[/bold red]")
                     console.print("[bold yellow][!] Please try again.[/bold yellow]")
                     sleep(2)
                     continue
